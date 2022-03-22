@@ -2,7 +2,9 @@
 
 import random
 
-def user_guess(rand_numb):
+def user_guess( top ):
+    rand_numb = random.randint(1, top)
+    
     guess_numb = 0
     while (guess_numb != rand_numb ):
         guess_numb = int(input('Guess >'))
@@ -17,13 +19,18 @@ def computer_guess( top ):
     bottom = 1
     feedback = ''
     while feedback != 'c':
-        pc_guess = random.randint( bottom, top )
+        if bottom < top:
+            pc_guess = random.randint( bottom, top )
+        else:
+            pc_guess = bottom
+            break
+            
         feedback = input(f'Is {pc_guess} too High(H), too Low(L) or correct(C): ').lower()
         if feedback != 'c':
             if feedback == 'h':
-                top = pc_guess
+                top = pc_guess - 1
             elif feedback == 'l':
-                bottom = pc_guess
+                bottom = pc_guess + 1
             print(f'BETWEEN {bottom} and {top}')
             
     print(f'You guessed, genius. The number is {pc_guess}. Anyway, you are a computer')
